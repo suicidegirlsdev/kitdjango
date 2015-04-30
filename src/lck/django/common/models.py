@@ -441,32 +441,6 @@ class EditorTrackable(db.Model):
             obj.modified_by = self.get_editor_from_request(request)
 
 
-class Localized(db.Model):
-    """Describes an abstract model which holds data in a specified
-    ``language``. The language is chosen from the Language choices class
-    but only from those specified in settings.LANGUAGES. The default value
-    is settings.LANGUAGE_CODE."""
-    language = db.PositiveIntegerField(verbose_name=_("language"),
-        choices=Language(filter=set([lang[0] for lang in settings.LANGUAGES])),
-            default=Language.id_from_name(settings.LANGUAGE_CODE))
-
-    class Meta:
-        abstract = True
-
-    @property
-    def lang(self):
-        l = Language.from_id(self.language)
-        return (l.name, l.desc)
-
-
-class Archivable(db.Model):
-    archived = db.BooleanField(verbose_name=_("is archived?"), default=False,
-        db_index=True)
-
-    class Meta:
-        abstract = True
-
-
 class DisplayCounter(db.Model):
     """Describes an abstract model which `display_count` can be incremented by
     calling ``bump()``.

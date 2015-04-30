@@ -30,10 +30,10 @@ from __future__ import unicode_literals
 from django.db import models as db
 from django.contrib.sites.models import Site
 from django.utils.translation import ugettext_lazy as _
-from lck.django.common.models import Titled, Localized, TimeTrackable
+from lck.django.common.models import Titled, TimeTrackable
 
 
-class FlatPage(Titled.NonUnique, Localized, TimeTrackable):
+class FlatPage(Titled.NonUnique, TimeTrackable):
     url = db.CharField(_('URL'), max_length=100, db_index=True)
     content = db.TextField(_('content'), blank=True)
     enable_comments = db.BooleanField(_('enable comments'))
